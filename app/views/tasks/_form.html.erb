@@ -1,0 +1,41 @@
+<div class="w-2/5">
+  <%= form_with(model: task) do |form| %>
+    <% if task.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+        <ul>
+          <% task.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :title, style: "display: block" %>
+      <%= form.text_field :title, class: "w-full", required: true, autocomplete: 'off'  %>
+    </div>
+
+    <div>
+      <%= form.label :description, style: "display: block" %>
+      <%= form.text_area :description, class: "w-full", required: true, rows: 10 %>
+    </div>
+
+    <div>
+      <%= form.label :deadline, style: "display: block" %>
+      <%= form.datetime_field :deadline, required: true %>
+    </div>
+
+    <div>
+      <% if task.id.present? %>
+        <%= form.label :is_completed, "Mark as completed", style: "display: block" %>
+        <%= form.check_box :is_completed %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= form.submit "Submit", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4"%>
+    </div>
+  <% end %>
+</div>

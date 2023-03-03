@@ -1,0 +1,14 @@
+<%= form_tag(tasks_path, method: :get, class: "flex flex-col") do |form| %>
+  <%= label_tag(:keyword_search, "Search by", class: "font-semibold mb-2") %>
+  <%= text_field_tag :keyword_search, params[:keyword_search], class: "mb-4" %>
+  <%= label_tag(:sort_by, "Sort by", class: "font-semibold mb-2") %>
+  <%= select_tag :sort_by, options_for_select([["Deadline", "deadline"], ["Latest", "created_at"]], params[:sort_by]), include_blank: false, class: "mb-4"  %>
+  <%= select_tag :sort_order, options_for_select([["Asc", "asc"], ["Desc", "desc"]], params[:sort_order]), include_blank: false, class: "mb-4"  %>
+  <div class="flex items-center mb-4 font-semibold">
+    <%= label_tag(:due_today, "Due today", class: "mr-4") %>
+    <%= check_box_tag(:due_today, "1", params[:due_today] == "1", class: "m-0") %>
+  </div>
+  <%= label_tag(:limit, "Limit", class: "font-semibold  mb-2") %>
+  <%= select_tag :limit, options_for_select([["5 tasks", 5], ["10 tasks", 10], ["20 tasks", 20]], params[:limit]), include_blank: false, class: "mb-4" %>
+  <%= submit_tag 'Search', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<% end %>

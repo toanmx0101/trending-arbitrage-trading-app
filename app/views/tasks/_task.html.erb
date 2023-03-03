@@ -1,0 +1,34 @@
+<div class="w-2/5 p-4 bg-white rounded-sm shadow-md gap-2" id="<%= dom_id task %>">
+  <strong>Title:</strong>
+  <p>
+    <%= task.title %>
+  </p>
+  <br/>
+  <strong>Description:</strong>
+  <p>
+    <%= task.description %>
+  </p>
+  <br/>
+
+  <div class="flex justify-between">
+    <p>
+      <strong>Is completed:</strong>
+      <%= task.is_completed? %>
+    </p>
+    <p>
+      <strong>Is overdue:</strong>
+      <%= task.is_overdue? %>
+    </p>
+  </div>
+  <br/>
+  <strong>Deadline:</strong>
+  <p>
+    <%= task.deadline.localtime %>
+  </p>
+  <br/>
+  <strong>Created at:</strong>
+  <p>
+    <%= task.created_at.localtime %>
+  </p>
+
+</div>
