@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :mark_as_completed]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = TaskQueryCommand.call(task_query_params).result
@@ -29,10 +29,6 @@ class TasksController < ApplicationController
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def mark_as_completed
-
   end
 
   def update
