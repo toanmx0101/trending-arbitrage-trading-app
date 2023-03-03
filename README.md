@@ -21,7 +21,7 @@ We’ve determined that this website would need the following functionalities:
     - [x]  Tasks that are overdue need to be marked as such
     - [x]  There should be a way to limit to just tasks that are due by the end of today
 
-Extra Items:
+### Extra Items:
 
 - [ ]  Upload supporting files into the task
 - [x]  More filters for the list page.
@@ -36,7 +36,7 @@ Extra Items:
 - [x]  Rubocop setup
 
 
-Techs
+### Techs
 - Ruby on Rails
 - Elasticsearch for full-text search
 - Tailwind CSS
@@ -44,13 +44,13 @@ Techs
 - ChatGPT for refactor code
 - Docker
 
-FIXME
+### FIXME
 - Downtime of task count on index pages
 
-Todos
+### Todos
 - Upload supporting files into the task
 
-First setup
+### First setup
 
 ```
 docker-compose exec web rails db:migrate
@@ -58,3 +58,8 @@ docker-compose exec web rails db:migrate
 # Optional
 docker-compose exec web rails db:seed
 ```
+
+
+### Test account
+
+john@gmail.com / topsecret
