@@ -4,7 +4,7 @@ services:
     image: mysql/mysql-server:8.0.23
     ports:
       - "3306:3306"
-    container_name: taskdatabase
+    container_name: taskdatabase2
     volumes:
       - db_data:/var/lib/mysql
       - .:/myapp
@@ -15,7 +15,7 @@ services:
       MYSQL_PASSWORD: password
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
-    container_name: elasticsearch
+    container_name: elasticsearch2
     hostname: elasticsearch
     environment:
       - cluster.name=docker-cluster
@@ -34,8 +34,8 @@ services:
     build: .
     environment:
       - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - DB_USERNAME=task_user
-      - DB_PASSWORD=task_password
+      - DB_USERNAME=user_testdb
+      - DB_PASSWORD=password
       - DB_HOST=database
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:

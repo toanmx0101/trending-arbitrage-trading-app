@@ -55,8 +55,9 @@ We’ve determined that this website would need the following functionalities:
 ```
 docker-compose exec web rails db:migrate
 
-# Optional
 docker-compose exec web rails db:seed
+
+docker-compose exec web rake assets:precompile
 ```
 
 
