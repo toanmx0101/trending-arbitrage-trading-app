@@ -1,0 +1,5 @@
+require "./app/main/scanner.rb"
+
+task :scan do
+  Scanner.call
+end

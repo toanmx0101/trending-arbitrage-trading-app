@@ -25,5 +25,7 @@ module Todo
     }
 
     # config.eager_load_paths << Rails.root.join("extras")
+    config.eager_load_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

@@ -13,27 +13,9 @@ services:
       MYSQL_DATABASE: testdb
       MYSQL_USER: user_testdb
       MYSQL_PASSWORD: password
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
-    container_name: elasticsearch2
-    hostname: elasticsearch
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - esdata:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
   web:
     build: .
     environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
       - DB_USERNAME=user_testdb
       - DB_PASSWORD=password
       - DB_HOST=database

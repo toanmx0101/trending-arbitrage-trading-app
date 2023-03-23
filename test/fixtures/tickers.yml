@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exchanges: one
+  base_currency: MyString
+  quote_currency: MyString
+  last_price: 1.5
+  bid_price: 1.5
+  ask_price: 1.5
+  last_24h_volume: 1.5
+
+two:
+  exchanges: two
+  base_currency: MyString
+  quote_currency: MyString
+  last_price: 1.5
+  bid_price: 1.5
+  ask_price: 1.5
+  last_24h_volume: 1.5

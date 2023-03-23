@@ -1,0 +1,42 @@
+<div id="<%= dom_id ticker %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Exchanges:</strong>
+    <%= ticker.exchanges_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Base currency:</strong>
+    <%= ticker.base_currency %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Quote currency:</strong>
+    <%= ticker.quote_currency %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Last price:</strong>
+    <%= ticker.last_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Bid price:</strong>
+    <%= ticker.bid_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Ask price:</strong>
+    <%= ticker.ask_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Last 24h volume:</strong>
+    <%= ticker.last_24h_volume %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this ticker", ticker, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this ticker', edit_ticker_path(ticker), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

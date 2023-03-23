@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  exchanges: one
+  version: MyString
+  base_endpoint: MyString
+  rate: 1
+  official_link: MyString
+
+two:
+  exchanges: two
+  version: MyString
+  base_endpoint: MyString
+  rate: 1
+  official_link: MyString

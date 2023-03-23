@@ -1,0 +1,9 @@
+<tr>
+  <td><%= exchange.name %></td>
+  <td><%= exchange.description %></td>
+  <td>
+    <% if action_name != "show" %>
+    <%= link_to "Show this exchange", exchange, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <% end %>
+  </td>
+</tr>

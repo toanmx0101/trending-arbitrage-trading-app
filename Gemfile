@@ -42,7 +42,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', require: false
 
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -74,12 +74,6 @@ gem 'devise', '~> 4.9'
 
 gem 'simple_command', '~> 1.0'
 
-gem 'searchkick', '~> 5.2'
-
-gem 'elasticsearch', '7.17'
-
-gem 'bonsai-searchkick', '~> 0.0.1'
-
 gem 'pry', '~> 0.14.2'
 
 gem 'tailwindcss-rails', '~> 2.0'
@@ -91,3 +85,14 @@ gem 'rubocop', '~> 1.47'
 gem "sidekiq", "~> 7.0"
 
 gem "mysql2", "~> 0.5.5"
+gem "json"
+gem "logging"
+gem "config"
+gem "colorize"
+gem "telegram-bot-ruby"
+gem "whenever"
+gem "rake"
+
+gem "activeadmin", "~> 2.13"
+
+gem "kaminari", "~> 1.2"

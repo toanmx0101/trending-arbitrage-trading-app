@@ -1,4 +1,4 @@
-user = User.create! :email => 'john@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
+user = User.create! :email => 'joh@gmail.com', :password => 'topsecret', :password_confirmation => 'topsecret'
 task_list = [
   {
     title: "Each must be able to create a task",
@@ -99,3 +99,4 @@ task_list.each do |task|
   )
 end
 Task.reindex
+Exchange.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
