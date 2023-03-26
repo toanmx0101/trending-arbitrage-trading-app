@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  currency: one
+  first_ticker: one
+  second_ticker: one
+  scheduler: MyString
+  tele_channel_id: MyString
+  user: one
+
+two:
+  currency: two
+  first_ticker: two
+  second_ticker: two
+  scheduler: MyString
+  tele_channel_id: MyString
+  user: two

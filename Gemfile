@@ -90,9 +90,15 @@ gem "logging"
 gem "config"
 gem "colorize"
 gem "telegram-bot-ruby"
-gem "whenever"
 gem "rake"
 
 gem "activeadmin", "~> 2.13"
 
 gem "kaminari", "~> 1.2"
+gem 'activeadmin-searchable_select', '~> 1.5'
+
+gem "activeadmin_addons", "~> 1.10"
+
+gem "paranoia", "~> 2.6"
+
+gem "sidekiq-scheduler", "~> 5.0"

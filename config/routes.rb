@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :ticker_pairs
+  resources :currencies
 
   ActiveAdmin.routes(self)
   resources :tickers

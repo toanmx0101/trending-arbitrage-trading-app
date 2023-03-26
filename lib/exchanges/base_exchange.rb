@@ -105,7 +105,15 @@ class Exchanges::BaseExchange
     exchange.symbols
   end
 
-  private
+  def self.spot_trade_url(coin_name)
+    exchange = new
+    exchange.spot_trade_url(coin_name)
+  end
+
+  def self.symbol(coin_name)
+    exchange = new
+    exchange.symbol(coin_name)
+  end
 
   def symbol(name)
     "#{name}#{symbol_prefix}#{default_currency}"

@@ -1,7 +1,7 @@
 require "./lib/exchanges/base_exchange.rb"
 
 module Exchanges
-  class KuCoin < BaseExchange
+  class Kucoin < BaseExchange
     API_ENDPOINT = "https://api.kucoin.com"
 
     def price coin_name

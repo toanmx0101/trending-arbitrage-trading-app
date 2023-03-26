@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_23_074707) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_26_064927) do
   create_table "active_admin_comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -36,11 +36,41 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_23_074707) do
     t.index ["exchange_id"], name: "index_api_configurations_on_exchange_id"
   end
 
+  create_table "currencies", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "symbol"
+    t.string "website"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "exchanges", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "exchange_klass"
+  end
+
+  create_table "ticker_pairs", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "currency_id", null: false
+    t.bigint "first_ticker_id"
+    t.bigint "second_ticker_id"
+    t.string "scheduler"
+    t.string "tele_channel_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "scheduled_sidekiq_job_id"
+    t.integer "status", default: 0
+    t.float "spread"
+    t.datetime "deleted_at"
+    t.datetime "last_run_at"
+    t.index ["currency_id"], name: "index_ticker_pairs_on_currency_id"
+    t.index ["first_ticker_id"], name: "index_ticker_pairs_on_first_ticker_id"
+    t.index ["second_ticker_id"], name: "index_ticker_pairs_on_second_ticker_id"
+    t.index ["user_id"], name: "index_ticker_pairs_on_user_id"
   end
 
   create_table "tickers", charset: "utf8mb4", force: :cascade do |t|
@@ -69,5 +99,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_23_074707) do
   end
 
   add_foreign_key "api_configurations", "exchanges"
+  add_foreign_key "ticker_pairs", "currencies"
+  add_foreign_key "ticker_pairs", "tickers", column: "first_ticker_id"
+  add_foreign_key "ticker_pairs", "tickers", column: "second_ticker_id"
+  add_foreign_key "ticker_pairs", "users"
   add_foreign_key "tickers", "exchanges"
 end

@@ -4,8 +4,13 @@ require "pry"
 
 module Exchanges
   class Mexc < BaseExchange
-    API_ENDPOINT = "https://www.mexc.com"
+    API_ENDPOINT = "https://api.mexc.com/api/v3/exchangeInfo"
     SPOT_TRADE_ENDPOINT = "https://www.mexc.com/exchange/"
+    SYMBOLS_URL = "https://api.mexc.com/api/v3/exchangeInfo"
+
+    def symbols
+
+    end
 
     def price(coin_name)
       response = HttpAbstractor.get(ticket_url, { symbol: symbol(coin_name)})

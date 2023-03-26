@@ -1,0 +1,37 @@
+<div id="<%= dom_id ticker_pair %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Currency:</strong>
+    <%= ticker_pair.currency_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">First ticker:</strong>
+    <%= ticker_pair.first_ticker_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Second ticker:</strong>
+    <%= ticker_pair.second_ticker_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Scheduler:</strong>
+    <%= ticker_pair.scheduler %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Tele channel:</strong>
+    <%= ticker_pair.tele_channel_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= ticker_pair.user_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this ticker pair", ticker_pair, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this ticker pair', edit_ticker_pair_path(ticker_pair), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

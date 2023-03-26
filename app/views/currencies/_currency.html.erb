@@ -1,0 +1,27 @@
+<div id="<%= dom_id currency %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= currency.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Symbol:</strong>
+    <%= currency.symbol %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Website:</strong>
+    <%= currency.website %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= currency.description %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this currency", currency, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this currency', edit_currency_path(currency), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
