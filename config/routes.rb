@@ -1,16 +1,16 @@
 # frozen_string_literal: true
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
-  resources :ticker_pairs
-  resources :currencies
-
   ActiveAdmin.routes(self)
-  resources :tickers
-  resources :exchanges
+
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
+  resources :currencies
+  resources :exchanges
+  resources :ticker_pairs
+  resources :tickers
 
-  root "dashboard#index"
+  mount Sidekiq::Web => '/sidekiq'
 end

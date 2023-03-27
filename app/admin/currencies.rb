@@ -23,10 +23,18 @@ ActiveAdmin.register Currency do
         column :exchange
         column :base_currency
         column :quote_currency
+        column :last_price
+        column :current_price
         column :last_24h_volume
         column :bid_price
         column :ask_price
       end
     end
   end
+
+  searchable_select_options(
+    name: :search_currency,
+    scope: Currency.all,
+    text_attribute: :symbol,
+    display_text: ->(record) { record.symbol } )
 end

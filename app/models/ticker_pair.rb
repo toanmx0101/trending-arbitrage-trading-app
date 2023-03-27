@@ -28,8 +28,10 @@ class TickerPair < ApplicationRecord
   end
 
   def create_scheduled_job
+    Sidekiq.set_schedule("TickerPairWatcherJob_#{scheduler}_#{self.id}", { every: [scheduler], class: "TickerPairWatcherJob", args: [self.id] })
   end
 
   def stop_scheduled_job
+    Sidekiq.remove_schedule("TickerPairWatcherJob_#{scheduler}_#{self.id}")
   end
 end

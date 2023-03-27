@@ -102,3 +102,5 @@ gem "activeadmin_addons", "~> 1.10"
 gem "paranoia", "~> 2.6"
 
 gem "sidekiq-scheduler", "~> 5.0"
+
+gem "aasm", "~> 5.5"

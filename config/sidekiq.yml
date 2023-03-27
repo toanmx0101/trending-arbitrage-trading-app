@@ -1,0 +1,8 @@
+:concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 5 %>
+:queues:
+  - critical
+  - default
+  - low
+:scheduler:
+  :dynamic: true
+  :enabled: true
