@@ -21,10 +21,11 @@ ActiveAdmin.register Currency do
       table_for currency.tickers.order(base_currency: :asc) do
         column :id
         column :exchange
-        column :base_currency
-        column :quote_currency
         column :last_price
         column :current_price
+        column :ticker do |resource|
+          link_to "#{resource.base_currency}/#{resource.quote_currency}", resource.spot_trade_url
+        end
         column :last_24h_volume
         column :bid_price
         column :ask_price
@@ -36,5 +37,8 @@ ActiveAdmin.register Currency do
     name: :search_currency,
     scope: Currency.all,
     text_attribute: :symbol,
+    collection: -> {
+      Currency.all.map { |record| [record.symbol, record.symbol] }
+    },
     display_text: ->(record) { record.symbol } )
 end

@@ -27,7 +27,11 @@ class TickerPairWatcherJob
 
     @ticker_pair.update(
       last_run_at: Time.now,
-      spread: spread
+      spread: (spread * 100).round(4)
     )
+
+    if @ticker_pair.reload.spread_threshold_alert <= spread
+      Notification.new.send_message("asdasd")
+    end
   end
 end

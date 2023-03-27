@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  currency: one
+  user: one
+  schedule: MyString
+
+two:
+  currency: two
+  user: two
+  schedule: MyString

@@ -14,6 +14,13 @@ class TickersPullingService
           base_currency: symbol.upcase,
           quote_currency: "USDT",
         )
+
+        if Currency.find_by(symbol:).nil?
+          Currency.create(
+            symbol: symbol,
+            name: symbol
+          )
+        end
       end
     end
   end

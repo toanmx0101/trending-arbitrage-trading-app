@@ -1,0 +1,2 @@
+class NotificationRule < ApplicationRecord
+end

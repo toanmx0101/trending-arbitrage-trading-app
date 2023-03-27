@@ -1,5 +1,5 @@
 ActiveAdmin.register TickerPair do
-  permit_params :currency_id, :first_ticker_id, :second_ticker_id, :scheduler, :tele_channel_id, :user_id
+  permit_params :currency_id, :first_ticker_id, :second_ticker_id, :scheduler, :tele_channel_id, :user_id, :spread_threshold_alert
 
   form do |f|
     f.object.currency = Currency.find(params[:currency_id]) if params[:currency_id]
@@ -29,6 +29,7 @@ ActiveAdmin.register TickerPair do
             currency_id: params[:currency_id]
           }
         }
+      f.input :spread_threshold_alert
       f.input :scheduler
       f.input :status
       f.input :tele_channel_id
@@ -47,15 +48,19 @@ ActiveAdmin.register TickerPair do
       link_to resource.second_ticker.exchange.name, resource.second_ticker.exchange
     end
 
+    column :first_exchange do |resource|
+      link_to "#{resource.first_ticker.last_price}", resource.first_ticker.spot_trade_url
+    end
+    column :second_exchange do |resource|
+      link_to "#{resource.second_ticker.last_price}", resource.second_ticker.spot_trade_url
+    end
+
     column :scheduler
-    column :tele_channel_id
-    column :user
     column :status
     column :spread do |resource|
-      "#{(resource.spread * 100).round(4)}%" if resource.spread
+      "#{resource.spread}%" if resource.spread
     end
     column :last_run_at
-    column :updated_at
 
     actions
   end
@@ -70,14 +75,16 @@ ActiveAdmin.register TickerPair do
       row :second_exchange do |resource|
         link_to resource.second_ticker.exchange.name, resource.second_ticker.exchange
       end
-
+      row :status
       row :scheduler
       row :tele_channel_id
       row :user
       row :scheduled_sidekiq_job_id
-      row :status
+      row :spread_threshold_alert do |resource|
+        "#{resource.spread_threshold_alert}%"
+      end
       row :spread do |resource|
-        "#{(resource.spread * 100).round(4)}%" if resource.spread
+        "#{resource.spread}%" if resource.spread
       end
       row :last_run_at
       row :created_at

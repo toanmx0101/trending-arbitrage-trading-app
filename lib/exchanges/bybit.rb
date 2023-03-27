@@ -2,7 +2,7 @@ require "./lib/exchanges/base_exchange.rb"
 
 module Exchanges
   class Bybit < BaseExchange
-    SPOT_TRADE_ENDPOINT = "https://www.mexc.com/exchange/"
+    SPOT_TRADE_ENDPOINT = "https://www.bybit.com/en-US/trade/spot/"
     API_ENDPOINT = "https://api.bybit.com/"
 
     def price(coin_name)
@@ -30,7 +30,7 @@ module Exchanges
     end
 
     def spot_trade_url coin_name
-      "#{SPOT_TRADE_ENDPOINT}#{symbol(coin_name)}"
+      "#{SPOT_TRADE_ENDPOINT}#{coin_name}/USDT"
     end
 
     private
@@ -46,5 +46,7 @@ module Exchanges
     def symbols_url
       "#{API_ENDPOINT}/v2/public/symbols"
     end
+
+
   end
 end

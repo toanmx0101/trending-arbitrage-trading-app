@@ -3,6 +3,7 @@ require "./lib/exchanges/base_exchange.rb"
 module Exchanges
   class Kucoin < BaseExchange
     API_ENDPOINT = "https://api.kucoin.com"
+    SPOT_TRADE_ENDPOINT = "https://www.kucoin.com/trade/"
 
     def price coin_name
       response = HttpAbstractor.get(ticket_url(coin_name), { symbol: "#{symbol(coin_name)}"})
@@ -45,6 +46,10 @@ module Exchanges
       data = response.body["data"].select { |symbol| symbol["quoteCurrency"] == default_currency }
       data = data.map { |symbol| symbol["name"].gsub("#{symbol_prefix}#{default_currency}", "") }
       data.reject { |symbol| symbol.index("3L") || symbol.index("3S") || symbol.index("5L") || symbol.index("5S") }
+    end
+
+    def spot_trade_url coin_name
+      "#{SPOT_TRADE_ENDPOINT}#{coin_name}-USDT"
     end
 
     private

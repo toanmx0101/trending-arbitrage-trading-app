@@ -3,6 +3,7 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :watch_lists
   ActiveAdmin.routes(self)
 
   devise_for :users

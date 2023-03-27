@@ -3,6 +3,7 @@ module Exchanges
     API_ENDPOINT = "https://api.bithumb.com"
     SYMBOLS_URL = "https://api-cloud.bitmart.com/spot/v2/ticker"
     TICKET_URL = "https://api-cloud.bitmart.com/spot/v1/ticker"
+    SPOT_TRADE_ENDPOINT = "https://www.bitmart.com/trade/en-US?symbol="
 
     def symbols
       response = HttpAbstractor.get(SYMBOLS_URL)
@@ -22,6 +23,10 @@ module Exchanges
 
     def symbol_prefix
       "_"
+    end
+
+    def spot_trade_url(coin_name)
+      "#{SPOT_TRADE_ENDPOINT}#{coin_name}_USDT"
     end
   end
 end

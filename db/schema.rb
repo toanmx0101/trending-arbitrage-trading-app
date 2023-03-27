@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_26_064927) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_27_063525) do
   create_table "active_admin_comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -53,6 +53,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_064927) do
     t.string "exchange_klass"
   end
 
+  create_table "notification_rules", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "rule"
+    t.string "description"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ticker_pairs", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "currency_id", null: false
     t.bigint "first_ticker_id"
@@ -67,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_064927) do
     t.float "spread"
     t.datetime "deleted_at"
     t.datetime "last_run_at"
+    t.float "spread_threshold_alert", default: 0.0
     t.index ["currency_id"], name: "index_ticker_pairs_on_currency_id"
     t.index ["first_ticker_id"], name: "index_ticker_pairs_on_first_ticker_id"
     t.index ["second_ticker_id"], name: "index_ticker_pairs_on_second_ticker_id"
@@ -98,10 +107,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_26_064927) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "watch_lists", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "currency_id", null: false
+    t.bigint "user_id", null: false
+    t.string "schedule"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_id"], name: "index_watch_lists_on_currency_id"
+    t.index ["user_id"], name: "index_watch_lists_on_user_id"
+  end
+
   add_foreign_key "api_configurations", "exchanges"
   add_foreign_key "ticker_pairs", "currencies"
   add_foreign_key "ticker_pairs", "tickers", column: "first_ticker_id"
   add_foreign_key "ticker_pairs", "tickers", column: "second_ticker_id"
   add_foreign_key "ticker_pairs", "users"
   add_foreign_key "tickers", "exchanges"
+  add_foreign_key "watch_lists", "currencies"
+  add_foreign_key "watch_lists", "users"
 end

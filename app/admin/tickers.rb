@@ -26,21 +26,6 @@ ActiveAdmin.register Ticker do
     actions
   end
 
-
-  show do
-    attributes_table(*default_attribute_table_rows)
-    panel "Tickers" do
-      table_for ticker.ticker_pairs.order(quote_currency: :asc) do
-        column :id
-        column :quote_currency
-        column :base_currency
-        column :last_24h_volume
-        column :bid_price
-        column :ask_price
-      end
-    end
-  end
-
   searchable_select_options(
     name: :search_by_currency,
     scope: -> {

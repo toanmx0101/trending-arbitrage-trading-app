@@ -1,0 +1,22 @@
+<div id="<%= dom_id watch_list %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Currency:</strong>
+    <%= watch_list.currency_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= watch_list.user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Schedule:</strong>
+    <%= watch_list.schedule %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this watch list", watch_list, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this watch list', edit_watch_list_path(watch_list), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
