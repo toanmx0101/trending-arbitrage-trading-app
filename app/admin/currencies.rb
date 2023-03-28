@@ -23,6 +23,7 @@ ActiveAdmin.register Currency do
         column :id
         column :schedule
         column :spread_threshold_alert
+        column :spread
         column :created_at
         column :updated_at
       end

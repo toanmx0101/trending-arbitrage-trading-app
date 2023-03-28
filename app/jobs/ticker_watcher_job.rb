@@ -22,14 +22,14 @@ class TickerWatcherJob
   end
 
   def notify_if_reach_spread_alert
-    max_price_ticker = @tickers.maximum(:last_price)
-    min_price_ticker = @tickers.minimum(:last_price)
+    max_price_ticker = @tickers.max_by(&:last_price)
+    min_price_ticker = @tickers.min_by(&:last_price)
 
-    spread = (max_price_ticker - min_price_ticker) * 100 / min_price_ticker
+    spread = (max_price_ticker.last_price - min_price_ticker.last_price) * 100 / min_price_ticker.last_price
     @watch_list.update!(spread: spread)
 
     if spread >= @watch_list.spread_threshold_alert
-      Notification.new.send_message("\[WL\] #{@currency.name} #{spread}%")
+      Notification.new.send_message("\[WL\] #{@currency.name} #{spread.round(2)}% #{max_price_ticker.exchange.name}  #{max_price_ticker.last_price}  #{min_price_ticker.exchange.name} #{min_price_ticker.last_price}")
     end
   end
 end

@@ -8,6 +8,8 @@ class TickerPair < ApplicationRecord
   belongs_to :second_ticker, class_name: "Ticker", foreign_key: "second_ticker_id"
   belongs_to :user
 
+  after_destroy_commit :stop_scheduled_job
+
   enum :status, [:stop, :running, :canceled]
 
   aasm column: :status, whiny_transitions: false, enum: true do

@@ -1,4 +1,4 @@
-:concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 5 %>
+:concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 25 %>
 :queues:
   - critical
   - default
