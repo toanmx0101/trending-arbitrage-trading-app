@@ -1,6 +1,6 @@
 class Exchange < ApplicationRecord
   paginates_per 50
-  has_many :tickers
+  has_many :tickers, dependent: :destroy
 
   def api_endpoint
     if exchange_klass && Exchanges.const_get(exchange_klass).present?
