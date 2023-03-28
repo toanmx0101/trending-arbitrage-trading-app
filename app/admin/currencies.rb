@@ -17,20 +17,44 @@ ActiveAdmin.register Currency do
 
   show do
     attributes_table(*default_attribute_table_rows)
+
+    panel "Watch lists" do
+      table_for currency.watch_lists do
+        column :id
+        column :schedule
+        column :spread_threshold_alert
+        column :created_at
+        column :updated_at
+      end
+    end
+
     panel "Tickers" do
       table_for currency.tickers.order(base_currency: :asc) do
         column :id
         column :exchange
         column :last_price
-        column :current_price
         column :ticker do |resource|
           link_to "#{resource.base_currency}/#{resource.quote_currency}", resource.spot_trade_url
         end
         column :last_24h_volume
         column :bid_price
         column :ask_price
+        column :updated_at
       end
     end
+  end
+
+  action_item :add_to_watch_list, only: :show, index: 0 do
+    link_to "Add to watch list", add_to_watch_list_admin_currency_path(resource)
+  end
+
+  member_action :add_to_watch_list do
+    WatchList.create!(
+      user: current_user,
+      currency: resource,
+      schedule: "1m"
+    )
+    redirect_to admin_currency_path(resource)
   end
 
   searchable_select_options(

@@ -40,12 +40,9 @@ ActiveAdmin.register TickerPair do
   end
 
   index do
-    column :currency
-    column :first_exchange do |resource|
-      link_to resource.first_ticker.exchange.name, resource.first_ticker.exchange
-    end
-    column :second_exchange do |resource|
-      link_to resource.second_ticker.exchange.name, resource.second_ticker.exchange
+    column :id
+    column :currency do |resource|
+      link_to "#{resource.currency.symbol} #{resource.first_ticker.exchange.name} vs #{resource.second_ticker.exchange.name}", resource.currency
     end
 
     column :first_exchange do |resource|
@@ -57,6 +54,7 @@ ActiveAdmin.register TickerPair do
 
     column :scheduler
     column :status
+    column :spread_threshold_alert
     column :spread do |resource|
       "#{resource.spread}%" if resource.spread
     end

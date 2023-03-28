@@ -5,7 +5,7 @@ ActiveAdmin.register WatchList do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :currency_id, :user_id, :schedule
+  permit_params :currency_id, :user_id, :schedule, :spread_threshold_alert
   #
   # or
   #
@@ -14,5 +14,4 @@ ActiveAdmin.register WatchList do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  
 end

@@ -14,7 +14,7 @@ module Exchanges
 
     def price(coin_name)
       response = HttpAbstractor.get(ticket_url(coin_name.upcase))
-      response.body["price"].to_f
+      response.body["markPrice"].to_f
     end
 
     def spot_trade_url coin_name
@@ -24,7 +24,7 @@ module Exchanges
     private
 
     def ticket_url(coin_name)
-      "#{API_ENDPOINT}/markets/#{symbol(coin_name)}/price"
+      "#{API_ENDPOINT}/markets/#{symbol(coin_name)}/markPrice"
     end
 
     def symbol_prefix

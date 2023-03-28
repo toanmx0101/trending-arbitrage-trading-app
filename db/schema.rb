@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_27_063525) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
   create_table "active_admin_comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -76,6 +76,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_063525) do
     t.datetime "deleted_at"
     t.datetime "last_run_at"
     t.float "spread_threshold_alert", default: 0.0
+    t.float "withdraw_fee", default: 0.0
+    t.float "deposit_fee", default: 0.0
     t.index ["currency_id"], name: "index_ticker_pairs_on_currency_id"
     t.index ["first_ticker_id"], name: "index_ticker_pairs_on_first_ticker_id"
     t.index ["second_ticker_id"], name: "index_ticker_pairs_on_second_ticker_id"
@@ -113,6 +115,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_063525) do
     t.string "schedule"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "spread_threshold_alert", default: 1.5
+    t.float "spread"
     t.index ["currency_id"], name: "index_watch_lists_on_currency_id"
     t.index ["user_id"], name: "index_watch_lists_on_user_id"
   end
