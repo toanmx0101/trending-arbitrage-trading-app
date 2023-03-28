@@ -104,3 +104,5 @@ gem "paranoia", "~> 2.6"
 gem "sidekiq-scheduler", "~> 5.0"
 
 gem "aasm", "~> 5.5"
+
+gem "dockerfile-rails", ">= 1.2", :group => :development

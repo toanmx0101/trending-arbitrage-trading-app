@@ -129,6 +129,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dockerfile-rails (1.2.5)
+      rails
     dry-configurable (1.0.1)
       dry-core (~> 1.0, < 2)
       zeitwerk (~> 2.6)
@@ -256,6 +258,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.2-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.14.2-x86_64-linux)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.22.1)
     paranoia (2.6.1)
@@ -370,6 +374,8 @@ GEM
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.23-arm64-darwin)
       railties (>= 6.0.0)
+    tailwindcss-rails (2.0.23-x86_64-linux)
+      railties (>= 6.0.0)
     telegram-bot-ruby (1.0.0)
       dry-struct (~> 1.6)
       faraday (~> 2.0)
@@ -412,6 +418,7 @@ PLATFORMS
   aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   aasm (~> 5.5)
@@ -424,6 +431,7 @@ DEPENDENCIES
   config
   debug
   devise (~> 4.9)
+  dockerfile-rails (>= 1.2)
   importmap-rails
   jbuilder
   json

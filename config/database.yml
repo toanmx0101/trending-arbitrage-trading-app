@@ -5,13 +5,13 @@ default: &default
   collation: utf8mb4_general_ci
   reconnect: true
   pool: <%= ENV["DB_POOL"] || 30 %>
-  username: <%= ENV["DB_USERNAME"] || "root" %>
-  password: <%= ENV["DB_PASSWORD"] || "" %>
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
 
 
 development:
   <<: *default
-  database: trending-arbitrage-app-development
+  database: testdb
   port: 3306
   timeout: 5000
 

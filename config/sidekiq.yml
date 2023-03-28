@@ -6,3 +6,8 @@
 :scheduler:
   :dynamic: true
   :enabled: true
+  :schedule:
+    pull_all_currencies:
+      every: "1d"
+      queue: low
+      class: PullAllCurrenciesJob
