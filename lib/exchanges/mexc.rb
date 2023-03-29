@@ -4,17 +4,22 @@ require "pry"
 
 module Exchanges
   class Mexc < BaseExchange
-    API_ENDPOINT = "https://api.mexc.com/api/v3/exchangeInfo"
+    API_ENDPOINT = "https://api.mexc.com/api/v3"
     SPOT_TRADE_ENDPOINT = "https://www.mexc.com/exchange/"
-    SYMBOLS_URL = "https://api.mexc.com/api/v3/exchangeInfo"
+    SYMBOLS_URL = "https://api.mexc.com/api/v3/defaultSymbols"
 
     def symbols
-
+      response = HttpAbstractor.get(SYMBOLS_URL)
+      response.body["data"].select do |pair|
+        pair.include?("USDT") && !pair.end_with?("3SUSDT") && !pair.end_with?("5SUSDT") && !pair.end_with?("3LUSDT") && !pair.end_with?("5LUSDT")
+      end.map do |pair|
+        pair.gsub("USDT", "")
+      end
     end
 
     def price(coin_name)
       response = HttpAbstractor.get(ticket_url, { symbol: symbol(coin_name)})
-      response.body["data"].first["last"].to_f
+      response.body["price"].to_f
     end
 
     def orders(coin_name)
@@ -76,19 +81,19 @@ module Exchanges
     private
 
     def ticket_url
-      "#{API_ENDPOINT}/open/api/v2/market/ticker"
+      "#{API_ENDPOINT}/ticker/price"
     end
 
     def orderbook_url
-      "#{API_ENDPOINT}/open/api/v2/market/depth"
+      "#{API_ENDPOINT}/open/api/v3/market/depth"
     end
 
     def symbols_url
-      "#{API_ENDPOINT}/open/api/v2/market/coin/list"
+      "#{API_ENDPOINT}/open/api/v3/market/coin/list"
     end
 
     def symbol_prefix
-      "_"
+      ""
     end
   end
 end
