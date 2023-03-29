@@ -1,4 +1,4 @@
-class PullTrendingCurrencyJob
+class PullTrendingCurrenciesJob
   def perform
   end
 end

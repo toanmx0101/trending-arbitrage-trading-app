@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
-  create_table "active_admin_comments", charset: "utf8mb4", force: :cascade do |t|
+  create_table "active_admin_comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
-  create_table "api_configurations", charset: "utf8mb4", force: :cascade do |t|
+  create_table "api_configurations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "exchange_id", null: false
     t.string "version"
     t.string "base_endpoint"
@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
     t.index ["exchange_id"], name: "index_api_configurations_on_exchange_id"
   end
 
-  create_table "currencies", charset: "utf8mb4", force: :cascade do |t|
+  create_table "currencies", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "symbol"
     t.string "website"
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "exchanges", charset: "utf8mb4", force: :cascade do |t|
+  create_table "exchanges", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
     t.string "exchange_klass"
   end
 
-  create_table "notification_rules", charset: "utf8mb4", force: :cascade do |t|
+  create_table "notification_rules", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "rule"
     t.string "description"
     t.string "name"
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ticker_pairs", charset: "utf8mb4", force: :cascade do |t|
+  create_table "ticker_pairs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "currency_id", null: false
     t.bigint "first_ticker_id"
     t.bigint "second_ticker_id"
@@ -84,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
     t.index ["user_id"], name: "index_ticker_pairs_on_user_id"
   end
 
-  create_table "tickers", charset: "utf8mb4", force: :cascade do |t|
+  create_table "tickers", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "exchange_id", null: false
     t.string "base_currency"
     t.string "quote_currency"
@@ -97,7 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
     t.index ["exchange_id"], name: "index_tickers_on_exchange_id"
   end
 
-  create_table "users", charset: "utf8mb4", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -109,7 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_28_044404) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "watch_lists", charset: "utf8mb4", force: :cascade do |t|
+  create_table "watch_lists", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "currency_id", null: false
     t.bigint "user_id", null: false
     t.string "schedule"

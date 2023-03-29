@@ -1,7 +1,7 @@
 require "./lib/exchanges/base_exchange.rb"
 
 module Exchanges
-  class DeprecatedFTX < BaseExchange
+  class Ftx < BaseExchange
     API_ENDPOINT = "https://ftx.com/api"
     SPOT_TRADE_ENDPOINT = "https://ftx.com/trade/"
 
