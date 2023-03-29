@@ -10,8 +10,8 @@ class TickersPullingService
       symbols = Exchanges.const_get(@exchange.exchange_klass).symbols
       symbols.each do |symbol|
         currency = Currency.find_or_create_by(
-          symbol: symbol,
-          name: symbol
+          symbol: symbol.upcase,
+          name: symbol.upcase
         )
 
         next if symbol.include?("$") || symbol.include?("_")

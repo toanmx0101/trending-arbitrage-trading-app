@@ -11,15 +11,17 @@ module Exchanges
 
     def symbols
       response = HttpAbstractor.get(SYMBOLS_URL)
-      response.body.select do |pair|
-        pair.include?("_usdt")
+      response.body["data"].map do|pair|
+        pair.upcase
+      end.select do |pair|
+        pair.include?("_USDT") && !pair.end_with?("3S_USDT") && !pair.end_with?("5S_USDT") && !pair.end_with?("3L_USDT") && !pair.end_with?("5L_USDT")
       end.map do |pair|
-        pair.gsub?("_usdt", "")
+        pair.gsub("_USDT", "")
       end
     end
 
     def symbol(coin_name)
-      "#{coin_name.downcase}_usdt"
+      "#{coin_name.downcase}_USDT".downcase
     end
   end
 end
