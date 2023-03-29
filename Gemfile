@@ -84,7 +84,6 @@ gem 'rubocop', '~> 1.47'
 
 gem "sidekiq", "~> 7.0"
 
-gem "mysql2", "~> 0.5.5"
 gem "json"
 gem "logging"
 gem "config"
@@ -104,3 +103,7 @@ gem "paranoia", "~> 2.6"
 gem "sidekiq-scheduler", "~> 5.0"
 
 gem "aasm", "~> 5.5"
+
+gem "dockerfile-rails", ">= 1.2", :group => :development
+
+gem "pg", "~> 1.4"

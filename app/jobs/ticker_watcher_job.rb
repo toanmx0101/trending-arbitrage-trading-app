@@ -16,7 +16,9 @@ class TickerWatcherJob
   private
 
   def fetch_tickers_price!
+    @tickers = @tickers.reject {|t| t.exchange.name == "Poloniex" || t.exchange.name == "Bitmart" }
     @tickers.each do |ticker|
+      next if ticker.exchange.name == "Poloniex"
       TickerPriceFetchingService.call(ticker)
     end
   end

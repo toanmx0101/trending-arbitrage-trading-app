@@ -1,6 +1,7 @@
 module Core
-  class TrendingTicker
+  class TrendingClient
     def self.tickets
       [""]
     end
   end
+end

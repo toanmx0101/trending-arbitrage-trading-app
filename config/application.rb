@@ -28,5 +28,6 @@ module TrendingArbitrageApp
     # config.eager_load_paths << Rails.root.join("extras")
     config.eager_load_paths << Rails.root.join('lib')
     config.autoload_paths << Rails.root.join('lib')
+    config.assets.css_compressor = nil
   end
 end

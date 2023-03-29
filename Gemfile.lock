@@ -129,6 +129,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dockerfile-rails (1.2.5)
+      rails
     dry-configurable (1.0.1)
       dry-core (~> 1.0, < 2)
       zeitwerk (~> 2.6)
@@ -241,7 +243,6 @@ GEM
     msgpack (1.6.0)
     multi_json (1.15.0)
     multipart-post (2.3.0)
-    mysql2 (0.5.5)
     net-imap (0.3.4)
       date
       net-protocol
@@ -256,12 +257,15 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.2-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.14.2-x86_64-linux)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.22.1)
     paranoia (2.6.1)
       activerecord (>= 5.1, < 7.1)
     parser (3.2.1.0)
       ast (~> 2.4.1)
+    pg (1.4.6)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -370,6 +374,8 @@ GEM
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.23-arm64-darwin)
       railties (>= 6.0.0)
+    tailwindcss-rails (2.0.23-x86_64-linux)
+      railties (>= 6.0.0)
     telegram-bot-ruby (1.0.0)
       dry-struct (~> 1.6)
       faraday (~> 2.0)
@@ -412,6 +418,7 @@ PLATFORMS
   aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
+  x86_64-linux
 
 DEPENDENCIES
   aasm (~> 5.5)
@@ -424,13 +431,14 @@ DEPENDENCIES
   config
   debug
   devise (~> 4.9)
+  dockerfile-rails (>= 1.2)
   importmap-rails
   jbuilder
   json
   kaminari (~> 1.2)
   logging
-  mysql2 (~> 0.5.5)
   paranoia (~> 2.6)
+  pg (~> 1.4)
   pry (~> 0.14.2)
   puma (~> 5.0)
   rails (~> 7.0.4)

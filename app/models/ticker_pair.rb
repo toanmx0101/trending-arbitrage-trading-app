@@ -22,7 +22,7 @@ class TickerPair < ApplicationRecord
 
     event :stop do
       transitions from: [:running], to: :stop, after: :stop_scheduled_job
-    end
+  end
 
     event :canceled do
       transitions from: [:running], to: :canceled, after: :stop_scheduled_job

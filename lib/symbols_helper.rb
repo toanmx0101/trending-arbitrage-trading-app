@@ -3,7 +3,7 @@ Dir["./lib/exchange/*.rb"].each {|file| require file }
 class SymbolsHelper
   def self.all_symbols
     bybit_symbols = Exchange::Bybit.symbols || []
-    ftx_symbols = Exchange::DeprecatedFTX.symbols rescue []
+    ftx_symbols = Exchange::Ftx.symbols rescue []
     bkex_symbols = Exchange::Bkex.symbols || []
     (bybit_symbols + ftx_symbols + bkex_symbols).uniq
   end
