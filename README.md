@@ -1,12 +1,14 @@
 # Trending. Arbitrage Trading Program
 
-Tôi bắt đầu với ý tưởng giá trị của các cặp tiền tệ trên các sàn giao dịch là khác nhau vì giá cả sẽ dựa trên cung cầu khác nhau giữa các thị trường và nền văn hoá. Bản thân tôi cũng đã trải qua việc chênh lệch giá này, nó xảy ra khi thị trường crypto bị đóng cửa ở trung quốc, khi đó tôi đang trade trên sàn Coinbene và Mexc. Giá của một vài cặp tiền tệ chênh khá nhiều từ 10 đến 20% giữa 2 sàn, khi đó tôi đã mua coin ở Mexc và bán sang Coinbene và kiếm được 1 khoản khá lơn.
+I start with the idea that the value of currency pairs on exchanges is different because pricing will be based on supply and demand which varies across markets and cultures. I myself experienced this arbitrage, it happened when the crypto market was closed in China, when I was trading on Coinbene and Mex. The prices of some currency pairs differed quite a bit from 10 to 20% between the two exchanges, then I bought coins in Mex and sold them to Coinbene and made a pretty large amount.
 
-Tôi tin điều này xảy ra không thường xuyên nhưng khi nó xảy ra, sẽ có 1 khoảng giá chênh rất lớn và điều này sẽ tạo cơ hội cho nhiều người, nhiều cá nhân có thể mua bán kiếm tiền dựa trên sự chênh lệch này, 
+I believe this happens infrequently but when it does, there will be a huge spread and this will create an opportunity for many people, many individuals to be able to trade and make money based on this difference,
+
+This motivated me to create a tool, an application that can detect the price difference between currency pairs on different exchanges. 
 
 Việc này càng thôi thúc tôi tạo ra một tool, ứng dụng để có thể phát hiện sự chênh lệch giá giữa của cặp tiền tệ trên các sàn giao dịch khác nhau
 
-### Các đinh nghĩa về giao dịch chênh lệch giá
+### Arbitrage Concepts
 
 [Arbitrage Trading Program (ATP)](https://www.investopedia.com/terms/a/atp.asp)
 
@@ -23,33 +25,33 @@ Building an arbitrage trading program between crypto exchanges involves several 
 
 It's worth noting that building an arbitrage trading program is a complex process that requires a solid understanding of programming, finance, and trading. If you don't have the necessary skills or experience, it may be best to seek out the help of a professional or use a pre-built trading bot.
 
-Day 1
+# First though
 
-Tôi lên ý tưởng và cóp nhặt những phần đã làm từ trước các thư viện…
+I came up with ideas and collected parts that were made before the libraries…
 
-Tưởng tượng về ứng dụng của tôi sẽ có các chức năng sau:
+Imagine my application would have the following functions:
 
-- Liệt kê tên tất cả các coin trên các sàn giao dịch
-- Liệt kê tất cả các sàn giao dịch
-- Liệt kê các coin + cặp tiền tệ đi kèm trên sàn giao dịch
-- Form tạo cặp tiền tệ giao dịch trên 2 sàn khác nhau
-    - Lựa chọn cặp tiền tệ có cùng 1 coin trên 2 sàn khác nhau
-    - Lựa chọn thời gian pull dữ liệu 1 phút/5 phút 15 phút…
-    - Setting chanel Tele gửi thông tin về khi có sự chênh lệch
-    - HIển thị giá của cặp tiền tệ trên 2 sàn được so sánh
-    - HIển thị giá bid, giá ask, lợi nhuận trên 1000$ bỏ ra.
-- Quản lý danh sách các cặp tiền tệ đã tạo (Thêm sửa xoá)
-    - Sửa tên
-    - Chỉnh sửa channel
-    - Hiển thị giá cặp tiền tệ trên 2 sàn được so sánh
-    - Hiển thị giá bid, ask
-    - Hiển thị lợi nhuận trên 1000$ bỏ ra
-- Liệt kê các coin đang trending 24h, 72h, 1 Tuần
-    - Liêt kê các coin đang trending, bao gồm tên,cặp tiền tệ, volumn 24h
+- List all coins on exchanges
+- List all exchanges
+- List coins + currency pairs included on the exchange
+- Form to create currency pairs to trade on 2 different exchanges
+     - Select currency pairs with the same coin on 2 different exchanges
+     - Select data pull time 1 minute / 5 minutes 15 minutes...
+     - Setting channel Tele sends information when there is a difference
+     - Display the price of currency pairs on 2 compared exchanges
+     - Display bid price, ask price, profit over $1000 spent.
+- Manage the list of created currency pairs (Add, edit)
+     - Edit name
+     - Edit channel
+     - Display currency pair prices on 2 compared exchanges
+     - Display bid, ask
+     - Show profit over 1000$ spent
+- List coins that are trending 24h, 72h, 1 Week
+     - List trending coins, including names, currency pairs, 24h volumn
 
-Tôi thiết kế db bao gồm các table sau
+I designed the db including the following tables
 
-- exchange: lưu trữ thông tin các sàn giao dịch, title, description base API endpoint
-- ticker: các cặp tiền tệ giao dịch thuộc về 1 sàn giao dịch nào đó (BTC_USDT)
-- currency: các tiền tệ giao dịch trên tất cả các sàn (BTC)
-- ticker_pair: so sánh 1 cặp tiền tệ giữa các sàn giao dịch
+- exchange: store information about exchanges, title, description base API endpoint
+- ticker: trading currency pairs belonging to a certain exchange (BTC_USDT)
+- currency: currencies traded on all exchanges (BTC)
+- ticker_pair: compare 1 currency pair between exchanges
