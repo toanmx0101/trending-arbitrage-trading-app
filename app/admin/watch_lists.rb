@@ -14,4 +14,13 @@ ActiveAdmin.register WatchList do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  action_item :enable_jobs, only: :index do
+    link_to "Sync jobs", enable_jobs_admin_watch_lists_path
+  end
+
+  collection_action :enable_jobs, method: :get do
+    WatchList.all.each do |x|;x.create_scheduled_job; end;
+    redirect_to admin_watch_lists_path, notice: "Sync jobs successfully!"
+  end
 end
