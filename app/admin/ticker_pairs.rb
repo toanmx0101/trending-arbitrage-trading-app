@@ -107,4 +107,13 @@ ActiveAdmin.register TickerPair do
     resource.stop!
     redirect_to admin_ticker_pair_path(resource)
   end
+
+  action_item :enable_jobs, only: :index do
+    link_to "Sync jobs", enable_jobs_admin_ticker_pairs_path
+  end
+
+  collection_action :enable_jobs, method: :get do
+    TickerPair.running.each do |t|; t.create_scheduled_job;end
+    redirect_to admin_ticker_pairs_path, notice: "Sync jobs successfully!"
+  end
 end
