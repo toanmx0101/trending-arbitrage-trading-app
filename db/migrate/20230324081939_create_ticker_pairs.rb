@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTickerPairs < ActiveRecord::Migration[7.0]
   def change
     create_table :ticker_pairs do |t|

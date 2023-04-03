@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveColumnsInExchanges < ActiveRecord::Migration[7.0]
   def up
     remove_column :exchanges, :email if column_exists? :exchanges, :email

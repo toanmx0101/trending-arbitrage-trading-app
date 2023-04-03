@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 module Exchanges
   class Poloniex < BaseExchange
-    API_ENDPOINT = "https://api.poloniex.com"
-    SYMBOLS_URL = "#{API_ENDPOINT}/markets"
-    TICKET_URL = "#{API_ENDPOINT}/"
-    SPOT_TRADE_ENDPOINT = "https://poloniex.com/trade/"
-    ORDER_BOOK_URL="#{API_ENDPOINT}/markets/"
+    API_ENDPOINT = 'https://api.poloniex.com'
+    SYMBOLS_URL = "#{API_ENDPOINT}/markets".freeze
+    TICKET_URL = "#{API_ENDPOINT}/".freeze
+    SPOT_TRADE_ENDPOINT = 'https://poloniex.com/trade/'
+    ORDER_BOOK_URL = "#{API_ENDPOINT}/markets/".freeze
 
     def symbols
       response = HttpAbstractor.get(SYMBOLS_URL)
       response.body.select do |pair|
-          pair["quoteCurrencyName"] == "USDT"
-      end.map { |s| s["baseCurrencyName"] }
+        pair['quoteCurrencyName'] == 'USDT'
+      end.map { |s| s['baseCurrencyName'] }
     end
 
     def price(coin_name)
       response = HttpAbstractor.get(ticket_url(coin_name.upcase))
-      response.body["price"].to_f
+      response.body['price'].to_f
     end
 
-    def spot_trade_url coin_name
+    def spot_trade_url(coin_name)
       "#{SPOT_TRADE_ENDPOINT}#{coin_name}_USDT"
     end
 
@@ -27,24 +29,24 @@ module Exchanges
       response.body
     end
 
-    def bids coin_name
-      orders(coin_name)["bids"].map do |b|
+    def bids(coin_name)
+      orders(coin_name)['bids'].map do |b|
         {
-          "symbol" => symbol(coin_name),
-          "price" => b["price"].to_f,
-          "size" => b["quantity"].to_f,
-          "side" => "Sell",
+          'symbol' => symbol(coin_name),
+          'price' => b['price'].to_f,
+          'size' => b['quantity'].to_f,
+          'side' => 'Sell'
         }
       end
     end
 
-    def asks coin_name
-      orders(coin_name)["asks"].map do |b|
+    def asks(coin_name)
+      orders(coin_name)['asks'].map do |b|
         {
-          "symbol" => symbol(coin_name),
-          "price" => b["price"].to_f,
-          "size" => b["quantity"].to_f,
-          "side" => "Buy",
+          'symbol' => symbol(coin_name),
+          'price' => b['price'].to_f,
+          'size' => b['quantity'].to_f,
+          'side' => 'Buy'
         }
       end
     end
@@ -56,7 +58,7 @@ module Exchanges
     end
 
     def symbol_prefix
-      "_"
+      '_'
     end
 
     def orderbook_url

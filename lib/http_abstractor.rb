@@ -1,49 +1,48 @@
-require "net/http"
-require "colorize"
+# frozen_string_literal: true
+
+require 'net/http'
+require 'colorize'
 
 class HttpAbstractor
-  attr_reader :uri
+  attr_reader :uri, :response
 
   def initialize(url)
-    raise "HttpAbstractor#initialize need a url" unless url
+    raise 'HttpAbstractor#initialize need a url' unless url
 
     url = url.to_s
     @uri = URI.parse(url)
     @http = Net::HTTP.new(@uri.host, @uri.port)
     @timeout = false
 
-    if @uri.scheme.to_s == 'https'
-      @http.use_ssl = true
-      @http.ssl_version = :TLSv1_2
-    end
+    return unless @uri.scheme.to_s == 'https'
+
+    @http.use_ssl = true
+    @http.ssl_version = :TLSv1_2
   end
 
   def send_request(request)
-    self.tap do |_self|
-      begin
-        @response = @http.request(request)
-        self.class.log_response(@response)
-
-      rescue Timeout::Error => e
-        self.class.log_response("Timeout::Error - #{e.message}")
-        @timeout = true
-        return self
-      end
+    tap do |_self|
+      @response = @http.request(request)
+      self.class.log_response(@response)
+    rescue Timeout::Error => e
+      self.class.log_response("Timeout::Error - #{e.message}")
+      @timeout = true
+      return self
     end
   end
 
   def body
     return @body if @body
 
-    if success?
-      @body = if @response.body
-                JSON.parse(@response.body) rescue @response.body
-              end
-    end
-  end
+    return unless success?
 
-  def response
-    @response
+    @body = (if @response.body
+               begin
+                 JSON.parse(@response.body)
+               rescue StandardError
+                 @response.body
+               end
+             end)
   end
 
   def code
@@ -78,16 +77,16 @@ class HttpAbstractor
     headers.merge!('Content-Type' => 'application/json') if headers['Content-Type'].blank?
 
     # write log
-    log("POST", url, params, headers, log_data)
+    log('POST', url, params, headers, log_data)
 
     send_request(url, params) do |uri, request_params|
       request = Net::HTTP::Post.new(uri.request_uri, headers)
 
-      if request_params.is_a?(String)
-        request.body = request_params
-      else
-        request.body = request_params.to_json
-      end
+      request.body = if request_params.is_a?(String)
+                       request_params
+                     else
+                       request_params.to_json
+                     end
 
       request
     end
@@ -96,7 +95,7 @@ class HttpAbstractor
   def self.post_raw(url, params = {}, headers = {}, log_data = [])
     headers.merge!('Content-Type' => 'application/xml') unless headers['Content-Type']
     # write log
-    log("POST_RAW", url, params, headers, log_data)
+    log('POST_RAW', url, params, headers, log_data)
 
     send_request(url, params) do |uri, request_params|
       request = Net::HTTP::Post.new(uri.request_uri, headers)
@@ -107,11 +106,11 @@ class HttpAbstractor
 
   def self.get(url, params = {}, headers = {}, log_data = [])
     # write log
-    log("GET", url, params, headers, log_data)
+    log('GET', url, params, headers, log_data)
 
     send_request(url, params) do |uri, request_params|
       if request_params
-        uri.query = uri.query ? "#{uri.query}&#{URI.encode_www_form(request_params)}" :URI.encode_www_form(request_params)
+        uri.query = uri.query ? "#{uri.query}&#{URI.encode_www_form(request_params)}" : URI.encode_www_form(request_params)
       end
       Net::HTTP::Get.new(uri.request_uri, headers)
     end
@@ -121,7 +120,7 @@ class HttpAbstractor
     headers.merge!('Content-Type' => 'application/json') unless headers['Content-Type']
 
     # write log
-    log("PUT", url, params, headers, log_data)
+    log('PUT', url, params, headers, log_data)
 
     send_request(url, params) do |uri, request_params|
       request = Net::HTTP::Put.new(
@@ -136,7 +135,7 @@ class HttpAbstractor
     headers.merge!('Content-Type' => 'application/json') unless headers['Content-Type']
 
     # write log
-    log("DELETE", url, {}, headers, log_data)
+    log('DELETE', url, {}, headers, log_data)
 
     send_request(url) do |uri|
       Net::HTTP::Delete.new(
@@ -158,11 +157,12 @@ class HttpAbstractor
   def self.log(action, url, params, headers, log_data = [])
     domain = url.is_a?(URI) ? url.host : URI.parse(url).host.downcase
     @logger_info = {
-      action: action, url: url, headers: headers, domain: domain,
-      params: params, log_data: Array(log_data)
+      action:, url:, headers:, domain:,
+      params:, log_data: Array(log_data)
     }
 
-    return if ENV["DISABLE_REQUEST_LOG"]
+    return if ENV['DISABLE_REQUEST_LOG']
+
     puts "#{action}##{url} #{params} #{headers}".colorize(:yellow)
   end
 
@@ -170,7 +170,11 @@ class HttpAbstractor
     case data.class.to_s
     when 'String'
       # attempt to convert String to Hash
-      data = JSON.parse(data) rescue data
+      data = begin
+        JSON.parse(data)
+      rescue StandardError
+        data
+      end
       if data.is_a?(String)
         data
       else
@@ -192,15 +196,16 @@ class HttpAbstractor
   def self.filter_sensitive_data_for_a_hash(data)
     return data unless data.is_a?(Hash)
 
-    ['password', 'Authorization', 'token', 'access_token'].each do |key|
-      data[key] = "*****" if data[key]
+    %w[password Authorization token access_token].each do |key|
+      data[key] = '*****' if data[key]
     end
 
-    return data
+    data
   end
 
   def self.log_response(response)
-    return if ENV["DISABLE_REQUEST_LOG"]
+    return if ENV['DISABLE_REQUEST_LOG']
+
     # custom data
     @logger_info[:log_data].each { |data| puts data }
 
@@ -209,8 +214,7 @@ class HttpAbstractor
       puts response.green
     else
       puts "RESPONSE - Code: #{response.code} - " \
-           "Body: #{sensitive_data_free((response.body || "").force_encoding("UTF-8"))}".green
+           "Body: #{sensitive_data_free((response.body || '').force_encoding('UTF-8'))}".green
     end
   end
-
 end

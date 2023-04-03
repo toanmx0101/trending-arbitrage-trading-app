@@ -42,7 +42,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', require: false
 
 # Use Sass to process CSS
-gem "sassc-rails"
+gem 'sassc-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -50,7 +50,7 @@ gem "sassc-rails"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem "mysql2", "~> 0.5.5"
+  gem 'mysql2', '~> 0.5.5'
 end
 
 group :development do
@@ -83,32 +83,32 @@ gem 'will_paginate', '~> 3.3'
 
 gem 'rubocop', '~> 1.47'
 
-gem "sidekiq", "~> 7.0"
+gem 'sidekiq', '~> 7.0'
 
-gem "json"
-gem "logging"
-gem "config"
-gem "colorize"
-gem "telegram-bot-ruby"
-gem "rake"
+gem 'colorize'
+gem 'config'
+gem 'json'
+gem 'logging'
+gem 'rake'
+gem 'telegram-bot-ruby'
 
-gem "activeadmin", "~> 2.13"
+gem 'activeadmin', '~> 2.13'
 
-gem "kaminari", "~> 1.2"
 gem 'activeadmin-searchable_select', '~> 1.5'
+gem 'kaminari', '~> 1.2'
 
-gem "activeadmin_addons", "~> 1.10"
+gem 'activeadmin_addons', '~> 1.10'
 
-gem "paranoia", "~> 2.6"
+gem 'paranoia', '~> 2.6'
 
-gem "sidekiq-scheduler", "~> 5.0"
+gem 'sidekiq-scheduler', '~> 5.0'
 
-gem "aasm", "~> 5.5"
+gem 'aasm', '~> 5.5'
 
-gem "dockerfile-rails", ">= 1.2", :group => :development
+gem 'dockerfile-rails', '>= 1.2', group: :development
 
-gem "pg", "~> 1.4"
+gem 'pg', '~> 1.4'
 
-gem "devise-api", "~> 0.1.1"
+gem 'devise-api', '~> 0.1.1'
 
-gem "active_model_serializers", "~> 0.10.13"
+gem 'active_model_serializers', '~> 0.10.13'

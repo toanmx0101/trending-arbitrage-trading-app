@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'sidekiq-scheduler'
 
@@ -16,9 +17,10 @@ class TickerWatcherJob
   private
 
   def fetch_tickers_price!
-    @tickers = @tickers.reject {|t| t.exchange.name == "Poloniex" || t.exchange.name == "Bitmart" }
+    @tickers = @tickers.reject { |t| t.exchange.name == 'Poloniex' || t.exchange.name == 'Bitmart' }
     @tickers.each do |ticker|
-      next if ticker.exchange.name == "Poloniex"
+      next if ticker.exchange.name == 'Poloniex'
+
       TickerPriceFetchingService.call(ticker)
     end
   end
@@ -28,10 +30,10 @@ class TickerWatcherJob
     min_price_ticker = @tickers.min_by(&:last_price)
 
     spread = (max_price_ticker.last_price - min_price_ticker.last_price) * 100 / min_price_ticker.last_price
-    @watch_list.update!(spread: spread)
+    @watch_list.update!(spread:)
 
-    if spread >= @watch_list.spread_threshold_alert
-      Notification.new.send_message("\[WL\] #{@currency.name} #{spread.round(2)}% #{max_price_ticker.exchange.name}  #{max_price_ticker.last_price}  #{min_price_ticker.exchange.name} #{min_price_ticker.last_price}")
-    end
+    return unless spread >= @watch_list.spread_threshold_alert
+
+    Notification.new.send_message("\[WL\] #{@currency.name} #{spread.round(2)}% #{max_price_ticker.exchange.name}  #{max_price_ticker.last_price}  #{min_price_ticker.exchange.name} #{min_price_ticker.last_price}")
   end
 end

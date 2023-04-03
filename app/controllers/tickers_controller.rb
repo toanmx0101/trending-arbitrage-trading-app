@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TickersController < ApplicationController
-  before_action :set_ticker, only: %i[ show edit update destroy ]
+  before_action :set_ticker, only: %i[show edit update destroy]
 
   # GET /tickers or /tickers.json
   def index
@@ -7,8 +9,7 @@ class TickersController < ApplicationController
   end
 
   # GET /tickers/1 or /tickers/1.json
-  def show
-  end
+  def show; end
 
   # GET /tickers/new
   def new
@@ -16,8 +17,7 @@ class TickersController < ApplicationController
   end
 
   # GET /tickers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /tickers or /tickers.json
   def create
@@ -25,7 +25,7 @@ class TickersController < ApplicationController
 
     respond_to do |format|
       if @ticker.save
-        format.html { redirect_to ticker_url(@ticker), notice: "Ticker was successfully created." }
+        format.html { redirect_to ticker_url(@ticker), notice: 'Ticker was successfully created.' }
         format.json { render :show, status: :created, location: @ticker }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class TickersController < ApplicationController
   def update
     respond_to do |format|
       if @ticker.update(ticker_params)
-        format.html { redirect_to ticker_url(@ticker), notice: "Ticker was successfully updated." }
+        format.html { redirect_to ticker_url(@ticker), notice: 'Ticker was successfully updated.' }
         format.json { render :show, status: :ok, location: @ticker }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,21 @@ class TickersController < ApplicationController
     @ticker.destroy
 
     respond_to do |format|
-      format.html { redirect_to tickers_url, notice: "Ticker was successfully destroyed." }
+      format.html { redirect_to tickers_url, notice: 'Ticker was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ticker
-      @ticker = Ticker.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def ticker_params
-      params.require(:ticker).permit(:exchanges_id, :base_currency, :quote_currency, :last_price, :bid_price, :ask_price, :last_24h_volume)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ticker
+    @ticker = Ticker.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def ticker_params
+    params.require(:ticker).permit(:exchanges_id, :base_currency, :quote_currency, :last_price, :bid_price,
+                                   :ask_price, :last_24h_volume)
+  end
 end
