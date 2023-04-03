@@ -15,4 +15,6 @@ Rails.application.routes.draw do
     resources :tickers
     mount Sidekiq::Web => '/sidekiq'
   end
+
+  draw :api_routes
 end
