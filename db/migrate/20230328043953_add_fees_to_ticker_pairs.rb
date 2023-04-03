@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddFeesToTickerPairs < ActiveRecord::Migration[7.0]
   def change
     add_column :ticker_pairs, :withdraw_fee, :float, default: 0

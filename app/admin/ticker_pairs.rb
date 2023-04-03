@@ -1,39 +1,42 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register TickerPair do
-  permit_params :currency_id, :first_ticker_id, :second_ticker_id, :scheduler, :tele_channel_id, :user_id, :spread_threshold_alert
+  permit_params :currency_id, :first_ticker_id, :second_ticker_id, :scheduler, :tele_channel_id, :user_id,
+                :spread_threshold_alert
 
   form do |f|
     f.object.currency = Currency.find(params[:currency_id]) if params[:currency_id]
-    f.inputs "TickerPair" do
+    f.inputs 'TickerPair' do
       f.input :currency,
-        label: "Currency",
-        as: :searchable_select,
-        ajax: {
-          collection_name: :search_currency,
-        }
+              label: 'Currency',
+              as: :searchable_select,
+              ajax: {
+                collection_name: :search_currency
+              }
 
       f.input :first_ticker,
-        label: "First exchange",
-        as: :searchable_select,
-        ajax: {
-          collection_name: :search_by_currency,
-          params: {
-            currency_id: params[:currency_id]
-          }
-        }
+              label: 'First exchange',
+              as: :searchable_select,
+              ajax: {
+                collection_name: :search_by_currency,
+                params: {
+                  currency_id: params[:currency_id]
+                }
+              }
       f.input :second_ticker,
-        label: "Second exchange",
-        as: :searchable_select,
-        ajax: {
-          collection_name: :search_by_currency,
-          params: {
-            currency_id: params[:currency_id]
-          }
-        }
+              label: 'Second exchange',
+              as: :searchable_select,
+              ajax: {
+                collection_name: :search_by_currency,
+                params: {
+                  currency_id: params[:currency_id]
+                }
+              }
       f.input :spread_threshold_alert
       f.input :scheduler
       f.input :status
       f.input :tele_channel_id
-      f.input :user_id, :input_html => { :value => current_user.id }, as: :hidden
+      f.input :user_id, input_html: { value: current_user.id }, as: :hidden
     end
 
     f.actions
@@ -42,14 +45,15 @@ ActiveAdmin.register TickerPair do
   index do
     column :id
     column :currency do |resource|
-      link_to "#{resource.currency.symbol} #{resource.first_ticker.exchange.name} vs #{resource.second_ticker.exchange.name}", resource.currency
+      link_to "#{resource.currency.symbol} #{resource.first_ticker.exchange.name} vs #{resource.second_ticker.exchange.name}",
+              resource.currency
     end
 
     column :first_exchange do |resource|
-      link_to "#{resource.first_ticker.last_price}", resource.first_ticker.spot_trade_url
+      link_to resource.first_ticker.last_price.to_s, resource.first_ticker.spot_trade_url
     end
     column :second_exchange do |resource|
-      link_to "#{resource.second_ticker.last_price}", resource.second_ticker.spot_trade_url
+      link_to resource.second_ticker.last_price.to_s, resource.second_ticker.spot_trade_url
     end
 
     column :scheduler
@@ -92,9 +96,9 @@ ActiveAdmin.register TickerPair do
 
   action_item :run_watcher, only: :show, index: 0 do
     if resource.running?
-      link_to "Stop watcher", stop_watcher_admin_ticker_pair_path(resource)
+      link_to 'Stop watcher', stop_watcher_admin_ticker_pair_path(resource)
     else
-      link_to "Run watcher", run_watcher_admin_ticker_pair_path(resource)
+      link_to 'Run watcher', run_watcher_admin_ticker_pair_path(resource)
     end
   end
 
@@ -109,11 +113,11 @@ ActiveAdmin.register TickerPair do
   end
 
   action_item :enable_jobs, only: :index do
-    link_to "Sync jobs", enable_jobs_admin_ticker_pairs_path
+    link_to 'Sync jobs', enable_jobs_admin_ticker_pairs_path
   end
 
   collection_action :enable_jobs, method: :get do
-    TickerPair.running.each do |t|; t.create_scheduled_job;end
-    redirect_to admin_ticker_pairs_path, notice: "Sync jobs successfully!"
+    TickerPair.running.each(&:create_scheduled_job)
+    redirect_to admin_ticker_pairs_path, notice: 'Sync jobs successfully!'
   end
 end

@@ -1,5 +1,6 @@
-ActiveAdmin.register Currency do
+# frozen_string_literal: true
 
+ActiveAdmin.register Currency do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -18,7 +19,7 @@ ActiveAdmin.register Currency do
   show do
     attributes_table(*default_attribute_table_rows)
 
-    panel "Watch lists" do
+    panel 'Watch lists' do
       table_for currency.watch_lists do
         column :id
         column :schedule
@@ -29,7 +30,7 @@ ActiveAdmin.register Currency do
       end
     end
 
-    panel "Tickers" do
+    panel 'Tickers' do
       table_for currency.tickers.order(base_currency: :asc) do
         column :id
         column :exchange
@@ -46,14 +47,14 @@ ActiveAdmin.register Currency do
   end
 
   action_item :add_to_watch_list, only: :show, index: 0 do
-    link_to "Add to watch list", add_to_watch_list_admin_currency_path(resource)
+    link_to 'Add to watch list', add_to_watch_list_admin_currency_path(resource)
   end
 
   member_action :add_to_watch_list do
     WatchList.create!(
       user: current_user,
       currency: resource,
-      schedule: "1m"
+      schedule: '1m'
     )
     redirect_to admin_currency_path(resource)
   end
@@ -62,8 +63,9 @@ ActiveAdmin.register Currency do
     name: :search_currency,
     scope: Currency.all,
     text_attribute: :symbol,
-    collection: -> {
+    collection: lambda {
       Currency.all.map { |record| [record.symbol, record.symbol] }
     },
-    display_text: ->(record) { record.symbol } )
+    display_text: ->(record) { record.symbol }
+  )
 end

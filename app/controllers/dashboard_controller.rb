@@ -1,9 +1,9 @@
-class DashboardController < ApplicationController
-  def index
+# frozen_string_literal: true
 
-  end
+class DashboardController < ApplicationController
+  def index; end
 
   def trending_cryptocurrencies
-    @trending_cryptocurrencies = ["XHR", "SHIBONE", "FCC"]
+    @trending_cryptocurrencies = %w[XHR SHIBONE FCC]
   end
 end

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'telegram/bot'
-require "simple_command"
+require 'simple_command'
 
 class Notification
-  TOKEN = ENV["TELE_TOKEN"]
-  CHAT_ID = ENV["CHAT_ID"]
+  TOKEN = ENV['TELE_TOKEN']
+  CHAT_ID = ENV['CHAT_ID']
 
   attr_accessor :bot
 
@@ -12,11 +14,11 @@ class Notification
     @token = token
   end
 
-  def send_message message
+  def send_message(message)
     bot.api.send_message(
       chat_id: @chat_id,
       text: message,
-      parse_mode: "Markdown",
+      parse_mode: 'Markdown',
       disable_web_page_preview: true
     )
   end

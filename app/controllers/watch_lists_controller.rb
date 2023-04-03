@@ -1,9 +1,9 @@
-class WatchListsController < InheritedResources::Base
+# frozen_string_literal: true
 
+class WatchListsController < InheritedResources::Base
   private
 
-    def watch_list_params
-      params.require(:watch_list).permit(:currency_id, :user_id, :schedule)
-    end
-
+  def watch_list_params
+    params.require(:watch_list).permit(:currency_id, :user_id, :schedule)
+  end
 end

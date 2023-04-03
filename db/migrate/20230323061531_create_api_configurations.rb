@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateApiConfigurations < ActiveRecord::Migration[7.0]
   def change
     create_table :api_configurations do |t|
@@ -6,7 +8,6 @@ class CreateApiConfigurations < ActiveRecord::Migration[7.0]
       t.string :base_endpoint
       t.integer :rate
       t.string :official_link
-
 
       t.timestamps
     end

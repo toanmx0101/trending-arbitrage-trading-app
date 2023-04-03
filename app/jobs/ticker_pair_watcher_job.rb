@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require 'sidekiq-scheduler'
 
@@ -30,8 +31,8 @@ class TickerPairWatcherJob
       spread: (spread * 100).round(4)
     )
 
-    if @ticker_pair.reload.spread_threshold_alert <= (spread * 100).round(4)
-      Notification.new.send_message("\[TP\] #{@ticker_pair.currency.name} #{@ticker_pair.spread.round(1)}% #{first_ticker.exchange.name}  #{first_ticker.last_price}  #{second_ticker.exchange.name} #{second_ticker.last_price}")
-    end
+    return unless @ticker_pair.reload.spread_threshold_alert <= (spread * 100).round(4)
+
+    Notification.new.send_message("\[TP\] #{@ticker_pair.currency.name} #{@ticker_pair.spread.round(1)}% #{first_ticker.exchange.name}  #{first_ticker.last_price}  #{second_ticker.exchange.name} #{second_ticker.last_price}")
   end
 end

@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Ticker do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :exchanges_id, :base_currency, :quote_currency, :last_price, :bid_price, :ask_price, :last_24h_volume, :currency
+  permit_params :exchanges_id, :base_currency, :quote_currency, :last_price, :bid_price, :ask_price, :last_24h_volume,
+                :currency
   #
   # or
   #
@@ -17,7 +20,7 @@ ActiveAdmin.register Ticker do
   index do
     column :id, sortable: true
     column :exchange
-    column(:base_currency) { |item| link_to item.symbol, item.spot_trade_url, target: "_blank"}
+    column(:base_currency) { |item| link_to item.symbol, item.spot_trade_url, target: '_blank' }
     column :last_price
     column :bid_price
     column :ask_price
@@ -28,7 +31,7 @@ ActiveAdmin.register Ticker do
 
   searchable_select_options(
     name: :search_by_currency,
-    scope: -> {
+    scope: lambda {
       if params[:currency_id].present?
         currency = Currency.find(params[:currency_id])
         Ticker.includes(:exchange)
@@ -42,6 +45,6 @@ ActiveAdmin.register Ticker do
       end
     },
     text_attribute: :base_currency,
-    display_text: -> (record) { "#{record.exchange.name} - #{record.base_currency}/#{record.quote_currency}" }
+    display_text: ->(record) { "#{record.exchange.name} - #{record.base_currency}/#{record.quote_currency}" }
   )
 end

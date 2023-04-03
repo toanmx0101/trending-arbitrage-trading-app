@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Ticker < ApplicationRecord
   include ::RansackSearchable
 
   belongs_to :exchange
-  belongs_to :currency, class_name: "Currency", foreign_key: "base_currency", primary_key: "symbol"
+  belongs_to :currency, class_name: 'Currency', foreign_key: 'base_currency', primary_key: 'symbol'
   has_many :ticker_pairs, class_name: 'TickerPair', foreign_key: 'first_ticker_id'
 
   def current_price

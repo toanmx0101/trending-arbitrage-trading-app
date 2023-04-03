@@ -1,5 +1,6 @@
-ActiveAdmin.register Exchange do
+# frozen_string_literal: true
 
+ActiveAdmin.register Exchange do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -26,7 +27,7 @@ ActiveAdmin.register Exchange do
   actions :all, except: [:destroy]
 
   action_item :pull_tickers, only: :show do
-    link_to "Pull tickers", pull_tickers_admin_exchange_path(resource)
+    link_to 'Pull tickers', pull_tickers_admin_exchange_path(resource)
   end
 
   member_action :pull_tickers do
@@ -38,7 +39,7 @@ ActiveAdmin.register Exchange do
   show do
     attributes_table(*default_attribute_table_rows)
 
-    panel "Tickers" do
+    panel 'Tickers' do
       table_for exchange.tickers.order(quote_currency: :asc) do
         column :id
         column :quote_currency

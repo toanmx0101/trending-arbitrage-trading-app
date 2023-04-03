@@ -1,5 +1,6 @@
-ActiveAdmin.register WatchList do
+# frozen_string_literal: true
 
+ActiveAdmin.register WatchList do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -16,11 +17,11 @@ ActiveAdmin.register WatchList do
   # end
 
   action_item :enable_jobs, only: :index do
-    link_to "Sync jobs", enable_jobs_admin_watch_lists_path
+    link_to 'Sync jobs', enable_jobs_admin_watch_lists_path
   end
 
   collection_action :enable_jobs, method: :get do
-    WatchList.all.each do |x|;x.create_scheduled_job; end;
-    redirect_to admin_watch_lists_path, notice: "Sync jobs successfully!"
+    WatchList.all.each(&:create_scheduled_job)
+    redirect_to admin_watch_lists_path, notice: 'Sync jobs successfully!'
   end
 end

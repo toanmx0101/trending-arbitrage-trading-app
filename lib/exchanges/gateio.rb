@@ -1,28 +1,30 @@
-require "./lib/exchanges/base_exchange.rb"
+# frozen_string_literal: true
+
+require './lib/exchanges/base_exchange'
 
 module Exchanges
   class Gateio < BaseExchange
-    API_ENDPOINT = "https://api.gateio.ws/api/v4"
-    SYMBOLS_URL = "#{API_ENDPOINT}/spot/currencies"
-    TICKET_URL = "#{API_ENDPOINT}/spot/tickers"
-    SPOT_TRADE_ENDPOINT = "https://www.gate.io/trade/"
+    API_ENDPOINT = 'https://api.gateio.ws/api/v4'
+    SYMBOLS_URL = "#{API_ENDPOINT}/spot/currencies".freeze
+    TICKET_URL = "#{API_ENDPOINT}/spot/tickers".freeze
+    SPOT_TRADE_ENDPOINT = 'https://www.gate.io/trade/'
 
     def symbols
       response = HttpAbstractor.get(SYMBOLS_URL)
       response.body.select do |pair|
-        !pair["delisted"] &&
-        !pair["trade_disabled"] &&
-        !pair["withdraw_disabled"] &&
-        !pair["withdraw_delayed"] &&
-        !pair["deposit_disabled"] &&
-        !pair["currency"].include?("_") &&
-        !pair["currency"].include?("$")
-      end.map { |s| s["currency"] }
+        !pair['delisted'] &&
+          !pair['trade_disabled'] &&
+          !pair['withdraw_disabled'] &&
+          !pair['withdraw_delayed'] &&
+          !pair['deposit_disabled'] &&
+          !pair['currency'].include?('_') &&
+          !pair['currency'].include?('$')
+      end.map { |s| s['currency'] }
     end
 
     def price(coin_name)
       response = HttpAbstractor.get(ticket_url(coin_name))
-      response.body.first["last"].to_f
+      response.body.first['last'].to_f
     end
 
     def spot_trade_url(coin_name)
@@ -31,12 +33,12 @@ module Exchanges
 
     private
 
-    def ticket_url coin_name
+    def ticket_url(coin_name)
       "#{TICKET_URL}?currency_pair=#{symbol(coin_name)}"
     end
 
     def symbol_prefix
-      "_"
+      '_'
     end
   end
 end

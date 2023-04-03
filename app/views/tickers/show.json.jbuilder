@@ -1,1 +1,3 @@
-json.partial! "tickers/ticker", ticker: @ticker
+# frozen_string_literal: true
+
+json.partial! 'tickers/ticker', ticker: @ticker

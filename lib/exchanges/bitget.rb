@@ -1,23 +1,25 @@
+# frozen_string_literal: true
+
 module Exchanges
   class Bitget < BaseExchange
-    API_ENDPOINT = "https://api.bitget.com/api/spot/v1/market"
-    SYMBOLS_URL = "#{API_ENDPOINT}/tickers"
+    API_ENDPOINT = 'https://api.bitget.com/api/spot/v1/market'
+    SYMBOLS_URL = "#{API_ENDPOINT}/tickers".freeze
 
     def symbols
       response = HttpAbstractor.get(SYMBOLS_URL)
-      response.body["data"].select do |pair|
-        pair["usdtVol"].to_f > 50000 && pair["symbol"].end_with?("USDT")
+      response.body['data'].select do |pair|
+        pair['usdtVol'].to_f > 50_000 && pair['symbol'].end_with?('USDT')
       end.map do |pair|
-        pair["symbol"].gsub("USDT", "")
+        pair['symbol'].gsub('USDT', '')
       end
     end
 
     def price(coin_name)
       response = HttpAbstractor.get(ticket_url(coin_name))
-      response.body["data"]["close"].to_f
+      response.body['data']['close'].to_f
     end
 
-    def ticket_url coin_name
+    def ticket_url(coin_name)
       "#{API_ENDPOINT}/ticker?symbol=#{symbol(coin_name)}"
     end
 
@@ -26,7 +28,7 @@ module Exchanges
     end
 
     def symbol_prefix
-      ""
+      ''
     end
   end
 end

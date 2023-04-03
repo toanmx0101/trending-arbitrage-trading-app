@@ -1,129 +1,130 @@
-require "./lib/http_abstractor.rb"
-require "json"
+# frozen_string_literal: true
 
-class Exchanges::BaseExchange
-  API_ENDPOINT = ""
+require './lib/http_abstractor'
+require 'json'
 
-  def initialize
-  end
+module Exchanges
+  class BaseExchange
+    API_ENDPOINT = ''
 
-  def all_tickers(base_currency)
-    []
-  end
+    def initialize; end
 
-  def ticket_url(coin_name)
-    ""
-  end
-
-  def orderbook_url(coin_name)
-    ""
-  end
-
-  def price(coin_name)
-    0
-  end
-
-  def orders(coin_name)
-    response = HttpAbstractor.get(orderbook_url(coin_name))
-
-    response.body
-  end
-
-  def bids coin_name
-    []
-  end
-
-  def asks coin_name
-    []
-  end
-
-  def ignore_symbol? coin_name
-    false
-  end
-
-  def symbols
-    []
-  end
-
-  def buyable_orders coin_name, price_ceiling
-    bids(coin_name).select do |bid|
-      bid["price"].to_f <= price_ceiling
+    def all_tickers(_base_currency)
+      []
     end
-  end
 
-  def sellable_orders coin_name, price_floor
-    ask(coin_name).select do |ask|
-      ask["price"] >= price_floor
+    def ticket_url(_coin_name)
+      ''
     end
-  end
 
-  def support_deposit? coin_name
-    true
-  end
+    def orderbook_url(_coin_name)
+      ''
+    end
 
-  def support_withdraw? coin_name
-    true
-  end
+    def price(_coin_name)
+      0
+    end
 
-  def support_trade? coin_name
-    true
-  end
+    def orders(coin_name)
+      response = HttpAbstractor.get(orderbook_url(coin_name))
 
-  def withdraw_fee coin_name, price
-    0
-  end
+      response.body
+    end
 
-  def last_ask_price coin_name
-    0
-  end
+    def bids(_coin_name)
+      []
+    end
 
-  def last_bid_price coin_name
-    0
-  end
+    def asks(_coin_name)
+      []
+    end
 
-  def spot_trade_url coin_name
-    ""
-  end
+    def ignore_symbol?(_coin_name)
+      false
+    end
 
-  def symbols
-    []
-  end
+    def symbols
+      []
+    end
 
+    def buyable_orders(coin_name, price_ceiling)
+      bids(coin_name).select do |bid|
+        bid['price'].to_f <= price_ceiling
+      end
+    end
 
+    def sellable_orders(coin_name, price_floor)
+      ask(coin_name).select do |ask|
+        ask['price'] >= price_floor
+      end
+    end
 
-  #######################
-  #### CLASS METHODS ####
-  #######################
+    def support_deposit?(_coin_name)
+      true
+    end
 
-  def self.price(coin_name)
-    exchange = new
-    exchange.price(coin_name)
-  end
+    def support_withdraw?(_coin_name)
+      true
+    end
 
-  def self.symbols
-    exchange = new
-    exchange.symbols
-  end
+    def support_trade?(_coin_name)
+      true
+    end
 
-  def self.spot_trade_url(coin_name)
-    exchange = new
-    exchange.spot_trade_url(coin_name)
-  end
+    def withdraw_fee(_coin_name, _price)
+      0
+    end
 
-  def self.symbol(coin_name)
-    exchange = new
-    exchange.symbol(coin_name)
-  end
+    def last_ask_price(_coin_name)
+      0
+    end
 
-  def symbol(name)
-    "#{name}#{symbol_prefix}#{default_currency}"
-  end
+    def last_bid_price(_coin_name)
+      0
+    end
 
-  def symbol_prefix
-    ""
-  end
+    def spot_trade_url(_coin_name)
+      ''
+    end
 
-  def default_currency
-    "USDT"
+    def symbols
+      []
+    end
+
+    #######################
+    #### CLASS METHODS ####
+    #######################
+
+    def self.price(coin_name)
+      exchange = new
+      exchange.price(coin_name)
+    end
+
+    def self.symbols
+      exchange = new
+      exchange.symbols
+    end
+
+    def self.spot_trade_url(coin_name)
+      exchange = new
+      exchange.spot_trade_url(coin_name)
+    end
+
+    def self.symbol(coin_name)
+      exchange = new
+      exchange.symbol(coin_name)
+    end
+
+    def symbol(name)
+      "#{name}#{symbol_prefix}#{default_currency}"
+    end
+
+    def symbol_prefix
+      ''
+    end
+
+    def default_currency
+      'USDT'
+    end
   end
 end

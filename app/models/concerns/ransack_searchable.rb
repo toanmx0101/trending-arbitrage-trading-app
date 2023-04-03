@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RansackSearchable
   extend ActiveSupport::Concern
 
@@ -9,8 +11,8 @@ module RansackSearchable
       return [] unless str_attribute_name.present?
 
       q = value.to_s.downcase.tr(' ', '')
-      qs =["LOWER(#{str_attribute_name}) like :q"]
-      qs << "cast(id as text) like :q" if with_id
+      qs = ["LOWER(#{str_attribute_name}) like :q"]
+      qs << 'cast(id as text) like :q' if with_id
       where(qs.join(' OR '), q: "%#{q}%")
     end
   end
