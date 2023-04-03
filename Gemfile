@@ -109,3 +109,6 @@ gem "dockerfile-rails", ">= 1.2", :group => :development
 
 gem "pg", "~> 1.4"
 
+gem "devise-api", "~> 0.1.1"
+
+gem "active_model_serializers", "~> 0.10.13"

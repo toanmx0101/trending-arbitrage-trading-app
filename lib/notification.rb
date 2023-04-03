@@ -2,8 +2,8 @@ require 'telegram/bot'
 require "simple_command"
 
 class Notification
-  TOKEN = "5366752306:AAFoweI08d9fsg9c8M8dY2KAS59beYSQF3I"
-  CHAT_ID = "-1001582041915"
+  TOKEN = ENV["TELE_TOKEN"]
+  CHAT_ID = ENV["CHAT_ID"]
 
   attr_accessor :bot
 
