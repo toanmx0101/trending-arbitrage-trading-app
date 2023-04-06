@@ -111,4 +111,10 @@ gem 'pg', '~> 1.4'
 
 gem 'devise-api', '~> 0.1.1'
 
+
+gem "pagy", "~> 6.0"
+
+
+# Serialization
 gem 'active_model_serializers', '~> 0.10.13'
+gem "jsonapi-serializer"
